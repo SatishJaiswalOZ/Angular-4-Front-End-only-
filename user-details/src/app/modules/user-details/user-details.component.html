@@ -1,0 +1,88 @@
+<div>
+    <form [formGroup]="myForm"  
+        (ngSubmit)="onSubmit(myForm.value)"  
+        class="ui form"
+        [class.error]="!myForm.valid 
+                        && myForm.touched">
+            <div class="form-control"> 
+                <input  
+                    placeholder="User name" 
+                    type="text" 
+                    alphaOnly
+                    name="name"
+                    [(ngModel)]="currentDataIData.name"
+                    [formControl]="myForm.controls['name']"/>                
+                <div *ngIf="myForm.controls['name'].hasError('required')  
+                            && myForm.controls['name'].touched"
+                    class="text-danger">[Name] is required!
+                </div>  
+            </div>
+            <div class="form-control"> 
+                <input  
+                    placeholder="Email" 
+                    type="text" 
+                    name="email"
+                    [(ngModel)]="currentDataIData.email"
+                    [formControl]="myForm.controls['email']"/>  
+                <div *ngIf="myForm.controls['email'].hasError('required')  
+                                && myForm.controls['email'].touched"
+                    class="text-danger">[Email] is required!
+                </div>  
+                <div *ngIf="myForm.controls['email'].errors?.email  
+                                && myForm.controls['email'].touched"
+                    class="text-danger">[Email] is invalid!
+                </div>  
+            </div>
+            <div class="form-control">
+                <dp-date-picker
+                    placeholder="Date of birth" 
+                    class="date-picker" 
+                    #dayPicker 
+                    name="dateInput"
+                    disabled
+                    [(ngModel)]="currentDataIData.dob"
+                    [formControl]="myForm.controls['dateInput']">
+                </dp-date-picker>
+                <div *ngIf="myForm.controls['dateInput'].hasError('required')  
+                                    && myForm.controls['dateInput'].touched"  
+                    class="text-danger">[Date] is required!
+                </div>  
+            </div>
+            <div class="form-control">
+                <input 
+                    type="text" 
+                    placeholder="Location" 
+                    autocorrect="off" 
+                    autocapitalize="off" 
+                    spellcheck="off" 
+                    [(ngModel)]="currentDataIData.location"
+                    name="location"
+                    #search 
+                    [formControl]="myForm.controls['location']">           
+                <div *ngIf="myForm.controls['location'].hasError('required') 
+                                && myForm.controls['location'].touched"  
+                    class="text-danger">[Location] is required!
+                </div>  
+            <div>
+                <agm-map 
+                    [latitude]="currentDataIData.latitude" 
+                    [longitude]="currentDataIData.longitude" 
+                    [scrollwheel]="true" 
+                    [zoom]="zoom">
+                <agm-marker 
+                    [latitude]="currentDataIData.latitude" 
+                    [longitude]="currentDataIData.longitude">
+                </agm-marker>
+                </agm-map>         
+            </div>
+                <div class="form-control">
+                    <button 
+                        type="submit"
+                        class="btn btn-large btn-primary" 
+                        title="Provide search details">Submit
+                    </button>
+                    <label class="text-info" *ngIf="submittedStatus !=''" >{{submittedStatus}}</label>
+                </div>
+            </div>          
+    </form>
+</div>

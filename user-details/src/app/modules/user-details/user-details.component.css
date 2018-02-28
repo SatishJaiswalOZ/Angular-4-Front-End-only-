@@ -1,0 +1,12 @@
+input{
+    width:100%;
+}
+
+dp-date-picker{
+    /*using !important is not recommended. Please refer Readme.md for the known issue*/
+    width:100% !important;
+}
+
+agm-map {
+    height: 300px;
+  }
